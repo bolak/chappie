@@ -1,5 +1,6 @@
 require "chappie/version"
-
+require "chappie/cli"
+require "dotenv"
 module Chappie
-  # Your code goes here...
+  Dotenv.load
 end
