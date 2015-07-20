@@ -1,5 +1,5 @@
 module Chappie
-  module Connector
+  module Generator
     class Staging
 
       require "ServerPilot"
