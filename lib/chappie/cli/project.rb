@@ -37,7 +37,6 @@ module Chappie
         local_install.create_new
 
         Chappie::Generator::Smores.new @name
-        Chappie::Generator::Smores.new @name, @client, @staging_db_pass, @staging_pass
 
         puts "===============================================================",
              "Please copy & paste the following into a new file in the WIKI: ",
