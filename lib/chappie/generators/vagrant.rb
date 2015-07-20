@@ -8,7 +8,7 @@ module Chappie
       end
 
       def create_new
-        puts "vv create -d #{@name}.#{@client}.dev -n #{@name} -x"
+        system "vv create -d #{@name}.#{@client}.dev -n #{@name} -x"
       end
     end
   end
