@@ -1,6 +1,6 @@
 module Chappie
   module Generator
-    class WordMove
+    class Wordmove
       def initialize(name, client, db_pass, ssh_pass)
         @name     = name
         @client   = client
