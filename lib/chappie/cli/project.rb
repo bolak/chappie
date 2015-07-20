@@ -35,8 +35,6 @@ module Chappie
 
       protected
 
-      def create_local_environment
-
 
       def create_password
         o = [('a'..'z'), ('A'..'Z'), (0..9)].map { |i| i.to_a }.flatten
