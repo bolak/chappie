@@ -19,19 +19,21 @@ module Chappie
 
       def project( name, client )
         puts "Creating New Project #{name}-#{client}."
-        @client = client
-        @name = name
-        self.create_staging_pass
+
+        #Initializing Project Properties
+        @client          = client
+        @name            = name
+        @staging_pass    = create_password
+        @staging_db_pass = create_password
+
         sp_connection = Chappie::Connector::Staging.new(@name, @client)
         sp_user_id = sp_connection.create_user(@staging_pass)
         sp_app_id = sp_connection.create_site(sp_user_id)
+        sp_db = sp_connection.create_database(sp_app_id, @staging_db_pass)
+        puts sp_db
       end
 
       protected
-
-      def create_staging_pass
-        @staging_pass = self.create_password
-      end
 
       def create_password
         o = [('a'..'z'), ('A'..'Z'), (0..9)].map { |i| i.to_a }.flatten
