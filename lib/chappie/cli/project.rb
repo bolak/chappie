@@ -1,4 +1,4 @@
-require "chappie/connectors/serverpilot"
+require "chappie/generators/serverpilot"
 
 module Chappie
   module CLI
@@ -26,7 +26,7 @@ module Chappie
         @staging_pass    = create_password
         @staging_db_pass = create_password
 
-        sp_connection = Chappie::Connector::Staging.new(@name, @client)
+        sp_connection = Chappie::Generator::Staging.new(@name, @client)
         sp_user_id = sp_connection.create_user(@staging_pass)
         sp_app_id = sp_connection.create_site(sp_user_id)
         sp_db = sp_connection.create_database(sp_app_id, @staging_db_pass)
@@ -34,6 +34,9 @@ module Chappie
       end
 
       protected
+
+      def create_local_environment
+
 
       def create_password
         o = [('a'..'z'), ('A'..'Z'), (0..9)].map { |i| i.to_a }.flatten
