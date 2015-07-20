@@ -38,6 +38,16 @@ module Chappie
 
         Chappie::Generator::Smores.new @name
         Chappie::Generator::Smores.new @name, @client, @staging_db_pass, @staging_pass
+
+        puts "===============================================================",
+             "Please copy & paste the following into a new file in the WIKI: ",
+             "===============================================================",
+             "Staging Database: #{@name}_#{@client}",
+             "Staging Database User: #{@name}_#{@client}",
+             "Staging Database Password: #{@staging_db_pass}",
+             "Staging URL: #{@name}.#{@client}.staging.findsomewinmore.com",
+             "Staging SFTP User: #{@name}-#{@client}",
+             "Staging SFTP Password: #{@staging_pass}"
       end
 
       protected
