@@ -16,10 +16,9 @@ module Chappie
           "server_id" => nil
         },
         "bitbucket" => {
-          "request_token" => nil,
-          "request_secret" => nil,
-          "consumer_key" => nil,
-          "consumer_secret" => nil
+          "login" => nil,
+          "password" => nil,
+          "team_name" => nil,
         }
       }
 

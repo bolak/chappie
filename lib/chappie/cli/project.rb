@@ -30,37 +30,43 @@ module Chappie
         @staging_pass    = create_password
         @staging_db_pass = create_password
 
-        Chappie::Generator::Repository.new
-        # sp_connection = Chappie::Generator::Staging.new @name, @client
-        # sp_user_id = sp_connection.create_user @staging_pass
-        # sp_app_id = sp_connection.create_site sp_user_id
-        # sp_db = sp_connection.create_database sp_app_id, @staging_db_pass
-        # #
-        # # local_install = Chappie::Generator::Vagrant.new @name, @client
-        # #
-        # # Chappie::Generator::Smores.new @name
-        # # Chappie::Generator::Wordmove.new @name, @client, @staging_db_pass, @staging_pass
-        #
-        # puts "===============================================================",
-        #      "Please copy & paste the following into a new file in the WIKI: ",
-        #      "===============================================================",
-        #      "Staging Database: #{@name}_#{@client}",
-        #      "Staging Database User: #{@name}_#{@client}",
-        #      "Staging Database Password: #{@staging_db_pass}",
-        #      "Staging URL: #{@name}.#{@client}.staging.findsomewinmore.com",
-        #      "Staging SFTP User: #{@name}-#{@client}",
-        #      "Staging SFTP Password: #{@staging_pass}"
-      end
+        bitbucket = Chappie::Generator::Repository.new
+        repository = bitbucket.create_repo "#{@client}-#{@name}"
+        sp_connection = Chappie::Generator::Staging.new @name, @client
+        sp_user_id = sp_connection.create_user @staging_pass
+        sp_app_id = sp_connection.create_site sp_user_id
+        sp_db = sp_connection.create_database sp_app_id, @staging_db_pass
 
-      # def local_env( name, client )
-      #   puts "Creating a new local development environment"
-      #   @client = client
-      #   @name   = name
-      #
-      #   Chappie::Generator::Vagrant.new @name, @client
-      #   Chappie::Generator::Smores.new @name
-      #   puts "Local development environment configured for #{@name}. You can find it at http://#{@name}.#{@client}.dev"
-      # end
+        local_install = Chappie::Generator::Vagrant.new @name, @client
+
+        Chappie::Generator::Smores.new @name, @client
+        Chappie::Generator::Wordmove.new @name, @client, @staging_db_pass, @staging_pass
+
+        puts "===============================================================",
+             "Please copy & paste the following into a new file in the WIKI: ",
+             "===============================================================",
+             "Staging Database: #{@name}_#{@client}",
+             "Staging Database User: #{@name}_#{@client}",
+             "Staging Database Password: #{@staging_db_pass}",
+             "Staging URL: #{@name}.#{@client}.staging.findsomewinmore.com",
+             "Staging SFTP User: #{@name}-#{@client}",
+             "Staging SFTP Password: #{@staging_pass}",
+             "Bitbucket Repo: git@bitbucket.org:findsomewinmore/#{@client}-#{@name}.git"
+      end
+      desc "local_env <name> <client>", "Creates a local environment on your VVV instance for development."
+      method_option :exists, aliases: "-e", desc: "Clone a repository from bitbucket"
+      def local_env( name, client )
+        puts "Creating a new local development environment"
+        @client = client
+        @name   = name
+
+        Chappie::Generator::Vagrant.new @name, @client
+        if options[:exists]
+          system "git clone git@bitbucket.org:findsomewinmore/#{@client}-#{@name}.git www/#{@name}/htdocs/wp-content/themes/#{@name}"
+        end
+        Chappie::Generator::Smores.new @name unless options[:exists]
+        puts "Local development environment configured for #{@name}. You can find it at http://#{@name}.#{@client}.dev \r\n Don't forget to Wordmove pull from staging or production to activate your theme and pull your database."
+      end
 
       protected
 

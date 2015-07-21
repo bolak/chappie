@@ -6,18 +6,12 @@ module Chappie
 
       def initialize
         @config = YAML::load_file "Chappiefile"
+        @bit_bucket = BitBucket.new login: @config["bitbucket"]["login"],
+                                    password: @config["bitbucket"]["password"]
+      end
 
-        @bit_bucket = BitBucket.new do |config|
-          config.oath_token = @config["bitbucket"]["request_token"]
-          config.oath_secret = @config["bitbucket"]["request_secret"]
-          config.client_id = @config["bitbucket"]["consumer_key"]
-          config.client_secret = @config["bitbucket"]["consumer_secret"]
-          config.adapter = :net_http
-        end
-
-        @bit_bucket.repos.list do |repo|
-          puts repo.slug
-        end
+      def create_repo(name)
+        @bit_bucket.repos.create name: name, owner: @config["bitbucket"]["team_name"]
       end
     end
   end
