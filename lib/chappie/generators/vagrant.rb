@@ -5,6 +5,7 @@ module Chappie
       def initialize(name, client)
         @name   = name
         @client = client
+        self.create_new
       end
 
       def create_new

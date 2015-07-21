@@ -7,9 +7,8 @@ Gem::Specification.new do |spec|
   spec.name          = "chappie"
   spec.version       = Chappie::VERSION
   spec.authors       = ["Sean Bolak", "Findsome & Winmore"]
-  spec.email         = ["hello@seanbolak.com"]
-
-  spec.summary       = %q{Chappie automates the setup of new wordpress projects for a developer.}
+  spec.email         = ["seanbolak@gmail.com"]
+  spec.summary       = %q{Chappie automates the setup of new wordpress projects for development teams.}
   spec.homepage      = "http://www.github.com/findsomewinmore/chappie/"
   spec.license       = "MIT"
 
@@ -26,6 +25,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.add_dependency "thor"
   spec.add_dependency "ServerPilot"
+  spec.add_dependency "wordmove"
+  spec.add_dependency "bitbucket_rest_api"
   spec.add_development_dependency "bundler", "~> 1.10"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "dotenv"

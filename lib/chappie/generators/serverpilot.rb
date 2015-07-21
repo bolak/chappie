@@ -3,13 +3,16 @@ module Chappie
     class Staging
 
       require "ServerPilot"
+      require "yaml"
 
       def initialize(name, client)
+        @config = YAML::load_file "Chappiefile"
+
         @project_name   = name
         @project_client = client
-        @client         = "cid_0HArDlRRLxc1p1Xi"
-        @key            = "Lx4XOHGdUe6R1tzn8YSmBuYtmfKNrW1uZdzRFrt8WPY"
-        @server         = "ir4sKv0QR3vrZqSJ"
+        @client = @config["server_pilot"]["client"]
+        @key = @config["server_pilot"]["key"]
+        @server = @config["server_pilot"]["server_id"]
         @sp_connection  = ServerPilot::API.new(@client, @key)
       end
 

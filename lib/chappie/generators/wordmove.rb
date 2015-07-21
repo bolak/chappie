@@ -1,6 +1,7 @@
 module Chappie
   module Generator
     class Wordmove
+      require "yaml"
       def initialize(name, client, db_pass, ssh_pass)
         @name     = name
         @client   = client
@@ -28,6 +29,7 @@ module Chappie
             move_file['staging']['database']['user']     = "#{@name}_#{@client}"
             move_file['staging']['database']['password'] = "#{@db_pass}"
             move_file['staging']['database']['host']     = "50.56.174.21"
+            move_file['staging']['ssh'] = {'host' => '', 'user' => '', 'password' => ''}
             move_file['staging']['ssh']['host']          = "50.56.174.21"
             move_file['staging']['ssh']['user']          = "#{@name}-#{@client}"
             move_file['staging']['ssh']['password']      = "#{@ssh_pass}"

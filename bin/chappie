@@ -2,4 +2,4 @@
 
 require 'chappie'
 
-Chappie::NewProject.start( ARGV )
+Chappie::App.start( ARGV )
