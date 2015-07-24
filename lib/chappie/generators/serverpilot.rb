@@ -39,11 +39,11 @@ module Chappie
         return app[:body]["data"]["id"]
       end
 
-      def create_database(app_id, db_password)
+      def create_database(app_id, db_user, db_password)
         db_params = {
           appid: app_id,
           name: "#{@project_name}_#{@project_client}",
-          user: { name: "#{@project_name}_#{@project_client}", password: db_password }
+          user: { name: db_user, password: db_password }
         }
         puts "Staging database created with Server Pilot"
         return @sp_connection.post_dbs db_params
