@@ -26,7 +26,7 @@ module Chappie
             move_file['staging']['vhost']                = "http://#{@name}.#{@client}.staging.findsomewinmore.com"
             move_file['staging']['wordpress_path']       = "/srv/users/#{@name}-#{@client}/apps/#{@name + @client}/public"
             move_file['staging']['database']['name']     = "#{@name}_#{@client}"
-            move_file['staging']['database']['user']     = "#{@name}_#{@client}"
+            move_file['staging']['database']['user']     = "#{@name}-#{@client}"
             move_file['staging']['database']['password'] = "#{@db_pass}"
             move_file['staging']['database']['host']     = "50.56.174.21"
             move_file['staging']['ssh'] = {'host' => nil, 'user' => nil, 'password' => nil}
